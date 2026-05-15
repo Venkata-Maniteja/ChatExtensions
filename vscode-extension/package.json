@@ -1,0 +1,79 @@
+{
+  "name": "m365-copilot-bridge",
+  "displayName": "M365 Copilot Bridge",
+  "description": "Use Microsoft 365 Copilot from the VS Code chat panel via a Chrome bridge extension.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "private": true,
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "AI",
+    "Chat"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "m365bridge.copilot",
+        "name": "m365",
+        "fullName": "M365 Copilot",
+        "description": "Chat with M365 Copilot via your browser session",
+        "isSticky": true
+      }
+    ],
+    "commands": [
+      {
+        "command": "m365Bridge.showStatus",
+        "title": "M365 Bridge: Show connection status"
+      },
+      {
+        "command": "m365Bridge.restartServer",
+        "title": "M365 Bridge: Restart WebSocket server"
+      }
+    ],
+    "configuration": {
+      "title": "M365 Copilot Bridge",
+      "properties": {
+        "m365Bridge.port": {
+          "type": "number",
+          "default": 39847,
+          "description": "Localhost port for the bridge WebSocket server."
+        },
+        "m365Bridge.requestTimeoutMs": {
+          "type": "number",
+          "default": 120000,
+          "description": "Per-prompt timeout in milliseconds."
+        },
+        "m365Bridge.sharedToken": {
+          "type": "string",
+          "default": "",
+          "description": "Optional shared token. If set, the Chrome extension must present this token to connect."
+        },
+        "m365Bridge.newChatPerRequest": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, the content script clicks 'New chat' before each prompt."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -w -p ./",
+    "typecheck": "tsc --noEmit -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.95.0",
+    "@types/ws": "^8.5.10",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "ws": "^8.16.0"
+  }
+}

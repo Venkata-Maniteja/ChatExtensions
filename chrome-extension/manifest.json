@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "M365 Copilot Bridge",
+  "description": "Bridges Microsoft 365 Copilot to a local VS Code chat extension over WebSocket.",
+  "version": "0.0.1",
+  "permissions": [
+    "tabs",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://copilot.cloud.microsoft/*",
+    "https://m365.cloud.microsoft/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://copilot.cloud.microsoft/*",
+        "https://m365.cloud.microsoft/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "action": {
+    "default_title": "M365 Copilot Bridge"
+  }
+}

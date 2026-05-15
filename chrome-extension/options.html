@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>M365 Copilot Bridge — Options</title>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 16px; max-width: 480px; }
+      label { display: block; margin-top: 12px; font-weight: 600; }
+      input { width: 100%; padding: 6px 8px; box-sizing: border-box; }
+      .row { margin-top: 12px; }
+      .hint { color: #666; font-size: 12px; margin-top: 4px; }
+      button { margin-top: 16px; padding: 8px 14px; cursor: pointer; }
+      #status { margin-top: 10px; color: #2a7; font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <h2>M365 Copilot Bridge</h2>
+    <p>These settings must match what the VS Code extension is configured to use.</p>
+
+    <label for="port">Localhost port</label>
+    <input id="port" type="number" min="1024" max="65535" />
+    <div class="hint">Default: 39847. Must match <code>m365Bridge.port</code> in VS Code.</div>
+
+    <label for="token">Shared token (optional)</label>
+    <input id="token" type="text" placeholder="leave blank to disable" />
+    <div class="hint">If set, must match <code>m365Bridge.sharedToken</code> in VS Code.</div>
+
+    <div class="row">
+      <label>
+        <input id="newChat" type="checkbox" />
+        Start a new chat before each prompt
+      </label>
+    </div>
+
+    <button id="save">Save</button>
+    <div id="status"></div>
+
+    <script src="options.js"></script>
+  </body>
+</html>
