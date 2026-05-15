@@ -1,0 +1,55 @@
+{
+  "name": "web-chat-webview",
+  "displayName": "Web Chat Webview",
+  "description": "Open any chat URL inside a VS Code editor tab. Auth happens inside the webview.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "private": true,
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "webChat.open",
+        "title": "Web Chat: Open Panel",
+        "category": "Web Chat"
+      },
+      {
+        "command": "webChat.openCustom",
+        "title": "Web Chat: Open Panel with URL\u2026",
+        "category": "Web Chat"
+      }
+    ],
+    "configuration": {
+      "title": "Web Chat Webview",
+      "properties": {
+        "webChat.defaultUrl": {
+          "type": "string",
+          "default": "https://chatgpt.com",
+          "description": "Default URL loaded when the panel opens (and no previous URL is remembered)."
+        },
+        "webChat.userAgent": {
+          "type": "string",
+          "default": "",
+          "description": "Reserved \u2014 VS Code does not currently let extensions override the webview user-agent. Leave empty."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -w -p ./",
+    "typecheck": "tsc --noEmit -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.95.0",
+    "typescript": "^5.4.0"
+  }
+}
