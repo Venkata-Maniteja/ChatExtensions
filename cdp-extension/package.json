@@ -5,6 +5,11 @@
   "version": "0.0.1",
   "publisher": "local",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Venkata-Maniteja/ChatExtensions.git",
+    "directory": "cdp-extension"
+  },
   "engines": {
     "vscode": "^1.95.0"
   },
