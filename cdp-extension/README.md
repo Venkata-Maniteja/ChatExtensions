@@ -79,7 +79,13 @@ Then in VS Code press **F5** to launch an Extension Development Host.
 
 1. Run **M365 CDP Bridge: Test browser connection** from the command palette.
    You should see `Connected. Driving https://m365.cloud.microsoft/chat`.
-2. Open the Chat panel → `@m365cdp hello, are you there?`
+2. Run **M365 CDP Bridge: Open Chat Panel** (or click the status bar item).
+   A standalone chat panel opens — type a prompt, hit Enter.
+
+If you also have **GitHub Copilot Chat** installed, `@m365cdp` works in the
+native chat panel too. Without it, the native chat panel refuses all
+participants with "language model not available" — that's a VS Code
+gating issue, not this extension; use the standalone panel instead.
 
 If the bubble appears but no text streams, the selectors are out of date —
 update `src/selectors.ts`. See "Debugging selectors" below.

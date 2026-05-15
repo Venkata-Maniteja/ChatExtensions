@@ -2,7 +2,7 @@
   "name": "m365-copilot-cdp-bridge",
   "displayName": "M365 Copilot CDP Bridge",
   "description": "Chat with M365 Copilot from VS Code by driving your real Chrome over the DevTools Protocol — no Chrome extension required.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "publisher": "local",
   "private": true,
   "repository": {
@@ -32,6 +32,11 @@
       }
     ],
     "commands": [
+      {
+        "command": "m365CdpBridge.openChat",
+        "title": "M365 CDP Bridge: Open Chat Panel",
+        "category": "M365 CDP Bridge"
+      },
       {
         "command": "m365CdpBridge.testConnection",
         "title": "M365 CDP Bridge: Test browser connection"

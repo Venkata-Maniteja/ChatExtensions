@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { CdpDriver, CdpDriverConfig } from './cdpDriver';
 import { registerChatParticipant } from './chatParticipant';
+import { ChatPanel } from './chatPanel';
 
 let driver: CdpDriver | undefined;
 let statusBar: vscode.StatusBarItem | undefined;
@@ -25,7 +26,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     vscode.StatusBarAlignment.Right,
     100,
   );
-  statusBar.command = 'm365CdpBridge.showStatus';
+  statusBar.command = 'm365CdpBridge.openChat';
   context.subscriptions.push(statusBar);
   renderStatus(false);
   statusBar.show();
@@ -34,9 +35,17 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
     driver.onStatusChange(connected => renderStatus(connected)),
   );
 
-  registerChatParticipant(context, driver);
+  try {
+    registerChatParticipant(context, driver);
+  } catch (err: any) {
+    output.appendLine(`[cdp] chat participant unavailable: ${err?.message ?? err}`);
+  }
 
   context.subscriptions.push(
+    vscode.commands.registerCommand('m365CdpBridge.openChat', () => {
+      if (!driver) return;
+      ChatPanel.show(context, driver);
+    }),
     vscode.commands.registerCommand('m365CdpBridge.testConnection', async () => {
       if (!driver) return;
       const res = await driver.testConnection();
@@ -68,6 +77,6 @@ function renderStatus(connected: boolean): void {
     ? '$(check) M365 CDP'
     : '$(circle-slash) M365 CDP';
   statusBar.tooltip = connected
-    ? 'CDP bridge connected. Use @m365cdp in Chat.'
-    : 'No browser connected. Launch Chrome with --remote-debugging-port=9222 and run "M365 CDP Bridge: Test browser connection".';
+    ? 'CDP bridge connected. Click to open the chat panel.'
+    : 'No browser connected. Click to open chat — launch Chrome with --remote-debugging-port=9222 first.';
 }
