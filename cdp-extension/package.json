@@ -1,0 +1,78 @@
+{
+  "name": "m365-copilot-cdp-bridge",
+  "displayName": "M365 Copilot CDP Bridge",
+  "description": "Chat with M365 Copilot from VS Code by driving your real Chrome over the DevTools Protocol — no Chrome extension required.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "private": true,
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "categories": [
+    "AI",
+    "Chat"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "m365cdpBridge.copilot",
+        "name": "m365cdp",
+        "fullName": "M365 Copilot (CDP)",
+        "description": "Chat with M365 Copilot by driving your real Chrome over CDP",
+        "isSticky": true
+      }
+    ],
+    "commands": [
+      {
+        "command": "m365CdpBridge.testConnection",
+        "title": "M365 CDP Bridge: Test browser connection"
+      },
+      {
+        "command": "m365CdpBridge.showStatus",
+        "title": "M365 CDP Bridge: Show status"
+      }
+    ],
+    "configuration": {
+      "title": "M365 Copilot CDP Bridge",
+      "properties": {
+        "m365CdpBridge.cdpEndpoint": {
+          "type": "string",
+          "default": "http://127.0.0.1:9222",
+          "description": "URL of the Chrome DevTools Protocol endpoint. Launch Chrome with --remote-debugging-port=9222."
+        },
+        "m365CdpBridge.targetUrl": {
+          "type": "string",
+          "default": "https://m365.cloud.microsoft/chat",
+          "description": "URL of the M365 Copilot chat page to drive."
+        },
+        "m365CdpBridge.requestTimeoutMs": {
+          "type": "number",
+          "default": 120000,
+          "description": "Per-prompt timeout in milliseconds."
+        },
+        "m365CdpBridge.newChatPerRequest": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, click 'New chat' before each prompt."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -w -p ./",
+    "typecheck": "tsc --noEmit -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.95.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "playwright-core": "^1.49.0"
+  }
+}
